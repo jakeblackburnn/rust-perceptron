@@ -1,5 +1,5 @@
-
 use std::fs;
+use rand::Rng;
 
     // data struct
 pub struct Data {
@@ -69,6 +69,58 @@ impl Data {
         }
         println!("\n");
     }
+
+}
+
+
+
+
+
+    // model struct
+pub struct Model {
+    data: Data,
+    weights: Vec<f64>,
+}
+
+impl Model {
+
+    // populate model
+    pub fn new(data: Data) -> Self {
+
+        println!("");
+        println!("========== BUILDING MODEL ==========");
+
+        let length = data.columns + 1;
+
+            // create random array of weights
+        let mut weights: Vec<f64> = Vec::new();
+        let mut range = rand::thread_rng();
+
+        for _i in 0..length {
+            let weight = range.gen();
+            weights.push( weight );
+        }
+
+        println!("");
+        println!("Successfully initialized model\n");
+
+        Model {
+            data,
+            weights
+        }
+    }
+
+    pub fn print(&self) {
+
+        println!("");
+        println!("========== DISPLAYING MODEL WEIGHTS ==========\n");
+
+        for weight in &self.weights {
+            println!("{}", weight);
+        }
+        println!("\n");
+    }
+
 
 }
 
