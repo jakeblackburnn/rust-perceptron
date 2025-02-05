@@ -1,8 +1,13 @@
+//
+// Created by J. Blackburn - Feb 5 2025
+//
+
 use std::fs;
 use std::io;
 use rand::Rng;
 
-    // data struct
+    // data struct - stores sets of training / testing examples
+    // TODO: rename data fields
 pub struct Data {
     elements: Vec<Vec<f64>>,
     targets: Vec<i32>,
@@ -57,6 +62,8 @@ impl Data {
         }
     }
 
+        // TODO: rename print method
+
     pub fn print(&self) {
 
         println!("");
@@ -77,7 +84,7 @@ impl Data {
 
 
 
-    // model struct
+    // model struct 
 pub struct Model {
     data: Data,
     weights: Vec<f64>,
@@ -85,7 +92,7 @@ pub struct Model {
 
 impl Model {
 
-        // populate model
+        // populate model from data struct and random weights
     pub fn new(data: Data) -> Self {
 
         println!("");
@@ -162,6 +169,7 @@ impl Model {
     }
 
 
+        // makes prediction from user input (assumes model is 2-D)
     pub fn predict_from_xy(&self) {
 
         println!("");
@@ -185,6 +193,7 @@ impl Model {
         println!("prediction: 1");
     }
 
+        // gets a feature (number between -1 and 1) from the user
     fn get_valid_float() -> f64 {
 
         println!("input a number between -1 and 1:");
