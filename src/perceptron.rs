@@ -1,8 +1,3 @@
-pub fn hello() {
-    println!("Hello, world!");
-}
-
-
     // data struct
 pub struct Data {
     elements: Vec<Vec<f64>>,
