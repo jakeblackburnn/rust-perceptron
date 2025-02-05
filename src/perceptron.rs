@@ -15,6 +15,7 @@ impl Data {
         
     pub fn new(filename: &str) -> Self {
 
+        println!("");
         println!("========== LOADING DATA ==========");
 
         let content = fs::read_to_string(filename)
@@ -43,8 +44,10 @@ impl Data {
         let rows = elements.len();
         let columns = elements[0].len();
 
+        println!("");
         println!("Successfully loaded data from file: {}! \n", filename);
 
+            // return populated data struct
         Data {
             elements,
             targets,
@@ -54,6 +57,8 @@ impl Data {
     }
 
     pub fn print(&self) {
+
+        println!("");
         println!("========== DISPLAYING DATA ==========\n");
 
         let mut i = 0;
