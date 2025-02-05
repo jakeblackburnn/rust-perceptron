@@ -3,7 +3,7 @@
 Simple example of the perceptron machine learning algorithm written in rust. This project started as the final project of an amazing multi-topic programming class and was written in C. The current version is a re-work of a previous attempt to reproduce the project in rust. Most of the code is copied directly from this older version, with minor improvements. 
 
 
-Last updated: Feb 5 2025
+Last updated: Feb 5 2025 (**WIP**)
 
 ***
 
@@ -22,14 +22,16 @@ Last updated: Feb 5 2025
 
 ## Usage
 
-Nothing here yet :(
+simply run the program using cargo:
+```bash
+cargo run
+```
 
 ---
 
 ## Features
 
 Nothing here yet :(
-
 
 ---
 
