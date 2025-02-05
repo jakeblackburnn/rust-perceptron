@@ -84,7 +84,7 @@ pub struct Model {
 
 impl Model {
 
-    // populate model
+        // populate model
     pub fn new(data: Data) -> Self {
 
         println!("");
@@ -94,10 +94,10 @@ impl Model {
 
             // create random array of weights
         let mut weights: Vec<f64> = Vec::new();
-        let mut range = rand::thread_rng();
+        let mut range = rand::rng();
 
         for _i in 0..length {
-            let weight = range.gen();
+            let weight = range.random();
             weights.push( weight );
         }
 
@@ -110,6 +110,7 @@ impl Model {
         }
     }
 
+        // print model weights
     pub fn print(&self) {
 
         println!("");
@@ -121,6 +122,43 @@ impl Model {
         println!("\n");
     }
 
+        // stochastic gradient descent
+    fn sgd(&mut self, current_index: usize) {
+        let target = self.data.targets[current_index];
+
+        for i in 1..(self.data.columns + 1) {
+            self.weights[i] += target as f64 * self.data.elements[current_index][self.data.columns - i];
+        }
+
+        self.weights[0] += target as f64;
+    }
+
+        // predict from current feature vector 
+    fn predict(&self, data: &Data, current_index: usize) -> isize {
+        let mut hypothesis: f64 = 0.0;
+
+        for i in 0..data.columns {
+            hypothesis += self.weights[data.columns - i] * data.elements[current_index][i];
+        }
+
+        if hypothesis < 0.0 { return -1; }
+        1
+    }
+
+        // fit model to data
+    pub fn fit(&mut self) {
+        let mut misclassified = true;
+        while misclassified {
+            misclassified = false;
+            for i in 0..self.data.rows {
+                let hypothesis = self.predict(&self.data, i);
+                let target = self.data.targets[i];
+                if target as isize == hypothesis { continue } ;
+                self.sgd(i);
+                misclassified = true;
+            }
+        }
+    }
 
 }
 
