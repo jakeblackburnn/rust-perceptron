@@ -1,4 +1,5 @@
 use std::fs;
+use std::io;
 use rand::Rng;
 
     // data struct
@@ -157,6 +158,50 @@ impl Model {
                 self.sgd(i);
                 misclassified = true;
             }
+        }
+    }
+
+
+    pub fn predict_from_xy(&self) {
+
+        println!("");
+        println!("Give me an X...");
+        let x = Self::get_valid_float();
+
+        println!("");
+        println!("Give me an Y...");
+        let y = Self::get_valid_float();
+        
+        let mut hypothesis: f64 = 0.0;
+
+        hypothesis += self.weights[2] * x;
+        hypothesis += self.weights[1] * y;
+
+        if hypothesis < 0.0 { 
+            println!("prediction: -1");
+            return;
+        }
+        println!("");
+        println!("prediction: 1");
+    }
+
+    fn get_valid_float() -> f64 {
+
+        println!("input a number between -1 and 1:");
+
+        let mut input_string = String::new();
+        loop {
+            io::stdin()
+                .read_line(&mut input_string)
+                .expect("Failed to read input");
+
+            let input_float = input_string
+                .trim()
+                .parse::<f64>()
+                .expect("Failed to parse input to float");
+
+            if (input_float <= 1.0) & (input_float >= -1.0) { return input_float; }
+            println!("invalid input: must be between 1 and -1");
         }
     }
 
