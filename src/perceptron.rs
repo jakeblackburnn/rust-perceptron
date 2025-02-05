@@ -1,3 +1,6 @@
+
+use std::fs;
+
     // data struct
 pub struct Data {
     elements: Vec<Vec<f64>>,
@@ -8,18 +11,46 @@ pub struct Data {
 
 impl Data {
 
-    pub fn new() -> Self {
+        // populate data from file
+        
+    pub fn new(filename: &str) -> Self {
+
+        println!("========== LOADING DATA ==========");
+
+        let content = fs::read_to_string(filename)
+                    .expect("Failed to read data file");
+        let lines = content.lines();
+
+        let mut elements: Vec<Vec<f64>> = Vec::new();
+        let mut targets: Vec<i32> = Vec::new();
+
+        for line in lines {
+
+            let mut items = line.split(" ")
+                            .map(|s| s.parse::<f64>().unwrap())
+                            .collect::<Vec<f64>>();
+
+            targets.push(
+                items.pop()
+                   .unwrap()
+                   .round() 
+                   as i32
+            );
+
+            elements.push(items);
+        }
+
+        let rows = elements.len();
+        let columns = elements[0].len();
+
+        println!("Successfully loaded data from file: {}! \n", filename);
 
         Data {
-            elements: vec![
-                vec![1.0, 2.0, 3.0],
-                vec![4.0, 5.0, 6.0],
-            ],
-            targets: vec![0, 1],
-            rows: 2,
-            columns: 3,
+            elements,
+            targets,
+            rows,
+            columns
         }
-        
     }
 
     pub fn print(&self) {
