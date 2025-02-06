@@ -14,9 +14,13 @@ fn main() {
     let data = Data::new("train.dat");
     let mut model = Model::new(data);
 
+    model.print();
         // train the model via SGD
     model.fit();
+    model.print();
+
+    model.evaluate("train.dat");
 
         // predict target from user input
-    model.predict_from_xy();
+    // model.predict_from_xy();
 }
