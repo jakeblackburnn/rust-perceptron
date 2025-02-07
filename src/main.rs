@@ -19,7 +19,7 @@ fn main() {
     model.fit();
     model.print();
 
-    model.evaluate("train.dat");
+    model.evaluate("test.dat"); 
 
         // predict target from user input
     // model.predict_from_xy();
