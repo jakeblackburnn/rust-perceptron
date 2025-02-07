@@ -155,6 +155,10 @@ impl Model {
 
         // fit model to data
     pub fn fit(&mut self) {
+
+        println!("");
+        println!("========== TRAINING MODEL ==========");
+
         let mut misclassified = true;
         while misclassified {
             misclassified = false;
@@ -166,10 +170,17 @@ impl Model {
                 misclassified = true;
             }
         }
+
+        println!("");
+        println!("training complete");
     }
 
         // evaluate model on testing data from file
     pub fn evaluate(&self, filename: &str) {
+
+        println!("");
+        println!("========== EVALUATING MODEL ==========");
+
         let training_data = Data::new(filename);
 
         let mut correct = 0;
@@ -177,6 +188,8 @@ impl Model {
             if self.predict(&training_data, i) == training_data.targets[i] as isize { correct += 1 }
         }
         let percent_correct = correct as f64 / training_data.rows as f64 * 100.0;
+
+        println!("");
         println!("Model Evaluation: {}% accuracy", percent_correct);
     }
 
