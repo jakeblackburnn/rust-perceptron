@@ -3,7 +3,7 @@
 Simple example of the perceptron machine learning algorithm written in rust. This project started as the final project of an amazing multi-topic programming class and was written in C. The current version is a re-work of a previous attempt to reproduce the project in rust. Most of the code is copied directly from this older version, with minor improvements.
 
 
-Last updated: Feb 5 2025 (**WIP**)
+Last updated: Feb 19 2025 (**WIP**)
 
 ***
 
@@ -31,7 +31,9 @@ cargo run
 
 ## Features
 
-The model makes a prediction based on user input as per binary classification. This is assuming the provided data is 2-D.
+1. evaluate from user input - asks the user to provide a datapoint, and classifies it.
+
+2. average performance evaluation - repeatedly trains and evaluates the model, calculating average performance of the algorithm on these data. (~81.5%)
 
 ---
 
