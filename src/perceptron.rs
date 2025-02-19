@@ -98,7 +98,9 @@ impl Model {
         println!("");
         println!("========== BUILDING MODEL ==========");
 
-        let length = data.columns + 1;
+        let length = data.columns + 1; // weights should match size of feature vector, plus an
+                                       // extra bias term
+
 
             // create random array of weights
         let mut weights: Vec<f64> = Vec::new();
@@ -130,16 +132,28 @@ impl Model {
         println!("\n");
     }
 
+
+
+    // MODEL IMPLEMENTATION
+    // 
+    // SGD, Fit, Predict 
+
+
         // stochastic gradient descent
     fn sgd(&mut self, current_index: usize) {
         let target = self.data.targets[current_index];
 
+            // iterate over weights
+            // add target * feature to weight
         for i in 1..(self.data.columns + 1) {
             self.weights[i] += target as f64 * self.data.elements[current_index][self.data.columns - i];
         }
 
+            // add target to bias
         self.weights[0] += target as f64;
     }
+
+
 
         // predict from current feature vector 
     fn predict(&self, data: &Data, current_index: usize) -> isize {
@@ -147,11 +161,14 @@ impl Model {
 
         for i in 0..data.columns {
             hypothesis += self.weights[data.columns - i] * data.elements[current_index][i];
+            hypothesis += self.weights[0];
         }
 
         if hypothesis < 0.0 { return -1; }
         1
     }
+
+
 
         // fit model to data
     pub fn fit(&mut self) {
@@ -174,6 +191,13 @@ impl Model {
         println!("");
         println!("training complete");
     }
+
+
+
+
+    // MODEL VALIDATION
+
+
 
         // evaluate model on testing data from file
     pub fn evaluate(&self, filename: &str) {
@@ -209,8 +233,10 @@ impl Model {
 
         hypothesis += self.weights[2] * x;
         hypothesis += self.weights[1] * y;
+        hypothesis += self.weights[0];
 
         if hypothesis < 0.0 { 
+            println!("");
             println!("prediction: -1");
             return;
         }
