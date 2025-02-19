@@ -17,12 +17,23 @@ pub struct Data {
 
 impl Data {
 
-        // populate data from file
-        
-    pub fn new(filename: &str) -> Self {
+        // populate data struct with messages
+    pub fn verbose_new(filename: &str) -> Self {
 
         println!("");
         println!("========== LOADING DATA ==========");
+
+        let data = Data::new(filename);
+
+        println!("");
+        println!("Successfully loaded data from file: {}! \n", filename);
+
+        data
+    }
+    
+    
+        // populate data struct silently 
+    pub fn new(filename: &str) -> Self {
 
         let content = fs::read_to_string(filename)
                     .expect("Failed to read data file");
@@ -49,9 +60,6 @@ impl Data {
 
         let rows = elements.len();
         let columns = elements[0].len();
-
-        println!("");
-        println!("Successfully loaded data from file: {}! \n", filename);
 
             // return populated data struct
         Data {
@@ -95,12 +103,8 @@ impl Model {
         // populate model from data struct and random weights
     pub fn new(data: Data) -> Self {
 
-        println!("");
-        println!("========== BUILDING MODEL ==========");
-
         let length = data.columns + 1; // weights should match size of feature vector, plus an
                                        // extra bias term
-
 
             // create random array of weights
         let mut weights: Vec<f64> = Vec::new();
@@ -111,14 +115,28 @@ impl Model {
             weights.push( weight );
         }
 
-        println!("");
-        println!("Successfully initialized model\n");
-
         Model {
             data,
             weights
         }
     }
+
+
+
+    pub fn verbose_new(data: Data) -> Self {
+
+        println!("");
+        println!("========== BUILDING MODEL ==========");
+
+        let model = Model::new(data);
+
+        println!("");
+        println!("Successfully initialized model\n");
+
+        model
+    }
+
+
 
         // print model weights
     pub fn print(&self) {
@@ -173,9 +191,6 @@ impl Model {
         // fit model to data
     pub fn fit(&mut self) {
 
-        println!("");
-        println!("========== TRAINING MODEL ==========");
-
         let mut misclassified = true;
         while misclassified {
             misclassified = false;
@@ -187,6 +202,15 @@ impl Model {
                 misclassified = true;
             }
         }
+    }
+
+        // fit model to data with messages
+    pub fn verbose_fit(&mut self) {
+
+        println!("");
+        println!("========== TRAINING MODEL ==========");
+
+        self.fit();
 
         println!("");
         println!("training complete");
@@ -200,10 +224,7 @@ impl Model {
 
 
         // evaluate model on testing data from file
-    pub fn evaluate(&self, filename: &str) {
-
-        println!("");
-        println!("========== EVALUATING MODEL ==========");
+    pub fn evaluate(&self, filename: &str) -> f64 {
 
         let training_data = Data::new(filename);
 
@@ -213,9 +234,24 @@ impl Model {
         }
         let percent_correct = correct as f64 / training_data.rows as f64 * 100.0;
 
+            // return accuracy
+        percent_correct
+
+    }
+
+    pub fn verbose_evaluate(&self, filename: &str) {
+
+        println!("");
+        println!("========== EVALUATING MODEL ==========");
+
+        let percent_correct = self.evaluate(filename);
+
         println!("");
         println!("Model Evaluation: {}% accuracy", percent_correct);
+
+
     }
+    
 
 
         // makes prediction from user input (assumes model is 2-D)
