@@ -154,7 +154,13 @@ impl Model {
 
     // MODEL IMPLEMENTATION
     // 
-    // SGD, Fit, Predict 
+    // Update Rule: w <- w + feature * target
+    //              b <- b + target
+    //
+    // This is the simplest case of the perceptron learning rule, where data is 2-D and linearly
+    // seperable. This is essentially a form of stochastic gradient descent where the learning rate
+    // is 1. To fit the model, we iterate over training examples, updating the weights only when we
+    // find a misclassified example, and iterate until all examples are correctly classified
 
 
         // stochastic gradient descent
@@ -163,6 +169,7 @@ impl Model {
 
             // iterate over weights
             // add target * feature to weight
+            // TODO: fix model weights being in reverse order
         for i in 1..(self.data.columns + 1) {
             self.weights[i] += target as f64 * self.data.elements[current_index][self.data.columns - i];
         }
