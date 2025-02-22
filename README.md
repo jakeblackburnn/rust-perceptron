@@ -2,12 +2,19 @@
 
 Simple example of the perceptron machine learning algorithm written in rust. This project started as the final project of an amazing multi-topic programming class and was written in C. The current version is a re-work of a previous attempt to reproduce the project in rust. Most of the code is copied directly from this older version, with minor improvements.
 
+Last updated: Feb 21 2025 (**WIP**)
 
-Last updated: Feb 19 2025 (**WIP**)
+Run the model on the provided dummy data to get some output like this:
+
+<img src="https://github.com/jakeblackburnn/rust-perceptron/blob/main/out.png?raw=true" alt="out" width="600"/>
 
 ***
 
+
 ## Installation
+
+0. Ensure Rust is installed: [official rust installation guide](https://www.rust-lang.org/tools/install)
+
 
 1. Clone the repository:
    ```bash
@@ -39,9 +46,7 @@ cargo run
 
 ## Technologies Used
 
-- **Language/Framework**: Rust 
-- **Tools**: n/a
-- **Others**: n/a
+- **Language/Framework**: Rust, Cargo
 
 ---
 
