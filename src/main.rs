@@ -16,7 +16,7 @@ fn main() {
 
     model.print();
         // train the model via SGD
-    model.fit();
+    model.verbose_fit();
     model.print();
 
     model.verbose_evaluate("test.dat");
