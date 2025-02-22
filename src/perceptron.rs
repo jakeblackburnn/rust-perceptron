@@ -169,13 +169,15 @@ impl Model {
 
             // iterate over weights
             // add target * feature to weight
-            // TODO: fix model weights being in reverse order
-        for i in 1..(self.data.columns + 1) {
-            self.weights[i] += target as f64 * self.data.elements[current_index][self.data.columns - i];
+            //
+            // Features and weights are aligned by index
+            // Bias is always weights[data.columns], one position beyond the final weight
+        for i in 0..(self.data.columns) {
+            self.weights[i] += target as f64 * self.data.elements[current_index][i];
         }
 
             // add target to bias
-        self.weights[0] += target as f64;
+        self.weights[self.data.columns] += target as f64;
     }
 
 
@@ -185,8 +187,8 @@ impl Model {
         let mut hypothesis: f64 = 0.0;
 
         for i in 0..data.columns {
-            hypothesis += self.weights[data.columns - i] * data.elements[current_index][i];
-            hypothesis += self.weights[0];
+            hypothesis += self.weights[i] * data.elements[current_index][i]; 
+            hypothesis += self.weights[data.columns];
         }
 
         if hypothesis < 0.0 { return -1; }
